@@ -14,7 +14,7 @@ export default class DashboardRoute extends Component {
         term: '',
         location: ''
     }
-    
+
 
     componentDidMount() {
         this.setState({
@@ -50,27 +50,33 @@ export default class DashboardRoute extends Component {
                         <Item> <h1>We connect you to cassandra Jobs</h1> </Item>
                     </Grid>
                     <Search />
-                
-                    <Grid item xs={4}>
+
+
+
+                </Grid>
+                <Grid container>
+                    <Grid item xs={3}>
                         <NewCard />
                     </Grid>
-                    <Grid item xs={4}>
+                    <Grid item xs={3}>
                         <NewCard />
                     </Grid>
-                    <Grid item xs={4}>
+                    <Grid item xs={3}>
                         <NewCard />
                     </Grid>
 
-                    <Grid item xs={4}>
-                        <NewCard />
-                        <NewCard />
-                        <NewCard />
-                        <NewCard />
-                    </Grid>
+                    
                     <Grid item xs={6}>
-                        
-                    </Grid>
 
+                    </Grid>
+                </Grid>
+                <Grid>
+                <Grid item xs={4}>
+                        <NewCard />
+                        <NewCard />
+                        <NewCard />
+                        <NewCard />
+                </Grid>
                 </Grid>
 
             </div>
