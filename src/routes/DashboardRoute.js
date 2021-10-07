@@ -14,9 +14,7 @@ export default class DashboardRoute extends Component {
         term: '',
         location: ''
     }
-    constructor(props) {
-        super(props)
-    }
+    
 
     componentDidMount() {
         this.setState({
@@ -36,7 +34,7 @@ export default class DashboardRoute extends Component {
         }));
 
         if (this.state != null) {
-            const jobs = this.state.jobs
+            // const jobs = this.state.jobs
             return <div>
                 <Grid container spacing={2}>
                     <Grid item xs={8}>
