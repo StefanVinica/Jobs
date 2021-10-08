@@ -118,7 +118,7 @@ const DashboardRoute = (props) => {
     const filteredbycompany = filteredJobs.map((res, index) => {
         return <Card
             style={
-                hover === index ? { backgroundColor: 'blue', margin: 15, color: 'white' } : { backgroundColor: 'white', color: '#1976D2', margin: 15, }
+                hover === index ? { boxShadow:'-1px 10px 29px 0px rgba(0,0,0,0.8)', margin: 15} : { backgroundColor: 'white', color: '#1976D2', margin: 15, }
             }
             key={index}
             onClick={event => { setSelected(index) }}
@@ -277,7 +277,7 @@ const DashboardRoute = (props) => {
                                 gutterBottom>
                                 {`Company Name: ${summary(0)}`}
                             </Typography>
-                            <Typography sx={{ fontSize: 14 }} color="#0288D1" gutterBottom>
+                            <Typography sx={{ fontSize: 14 }} color="grey" gutterBottom>
                                 {`Position Name: ${summary(1)}`}
                             </Typography>
                         </CardContent>
@@ -290,7 +290,7 @@ const DashboardRoute = (props) => {
                             title={'Description'}
                         />
                         <CardContent>
-                            <Typography sx={{ fontSize: 14 }} color="#0288D1" gutterBottom>
+                            <Typography sx={{ fontSize: 14 }} color="grey" gutterBottom>
                                 {summary(2)}
                             </Typography>
                         </CardContent>
