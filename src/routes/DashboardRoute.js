@@ -8,7 +8,10 @@ import TextField from '@mui/material/TextField'
 import Box from '@mui/material/Box'
 import Card from '@material-ui/core/Card'
 import CardHeader from '@material-ui/core/CardHeader'
-import Button from '@mui/material/Button';
+import Button from '@mui/material/Button'
+import Typography from '@mui/material/Typography'
+import { CardContent } from '@mui/material'
+import ButtonBase from '@material-ui/core/ButtonBase';
 
 const DashboardRoute = () => {
 
@@ -16,6 +19,7 @@ const DashboardRoute = () => {
     const [searchLocation, setSearchLocation] = useState("")
     const [jobs] = React.useState(data.hits.hits)
     const [filteredJobs, setFilteredJobs] = React.useState([])
+    const [selected, setSelected] = React.useState(0)
 
     const handleChangeTerm = event => {
         setSearchTerm(event.target.value)
@@ -85,9 +89,10 @@ const DashboardRoute = () => {
         }
         if (searchTerm.length === 0) {
             filteredJobs = jobs.filter((fjobs) => {
-                if(fjobs._source.location){
-                return fjobs._source.location.toLowerCase().includes(searchLocation.toLowerCase())
-            }})
+                if (fjobs._source.location) {
+                    return fjobs._source.location.toLowerCase().includes(searchLocation.toLowerCase())
+                }
+            })
         }
         setFilteredJobs(filteredJobs)
     }
@@ -97,12 +102,36 @@ const DashboardRoute = () => {
         return <Card
             style={{ margin: 15 }}
             key={index}
+            onClick={event =>{setSelected(index)}}
         >
+            
             <CardHeader
                 title={res._source.position_name}
             />
+            
         </Card>
     })
+
+    const summary = (num) => {
+        if (num == 0) {
+            if (filteredJobs.length > 0) {
+                return filteredJobs[selected]._source.company_name
+            }
+            else return ''
+        }
+        if (num == 1) {
+            if (filteredJobs.length > 0) {
+                return filteredJobs[selected]._source.position_name
+            }
+            else return ''
+        }
+        if (num == 2) {
+            if (filteredJobs.length > 0) {
+                return filteredJobs[selected]._source.description
+            }
+            else return ''
+        }
+    }
 
 
     const Item = styled(Paper)(({ theme }) => ({
@@ -179,17 +208,17 @@ const DashboardRoute = () => {
                 >Java</Button>
             </Grid>
             <Grid item xs={3}>
-                <Button 
-                size="large"
-                variant="contained"
-                onClick={handleButtonClick2}
+                <Button
+                    size="large"
+                    variant="contained"
+                    onClick={handleButtonClick2}
                 >Python</Button>
             </Grid>
             <Grid item xs={3}>
-                <Button 
-                size="large" 
-                variant="contained"
-                onClick={handleButtonClick3}
+                <Button
+                    size="large"
+                    variant="contained"
+                    onClick={handleButtonClick3}
                 >Kubernetes</Button>
             </Grid>
             {/* </Grid>
@@ -199,6 +228,33 @@ const DashboardRoute = () => {
                     item xs={6}
                 >
                     {filteredbycompany}
+                </Grid>
+                <Grid
+                    item xs={5}
+                >
+                    <Card style={{ margin: 15 }}>
+                        <CardHeader
+                            title={'Summary'}
+                        />
+                        <CardContent>
+                            <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+                                {`Company Name: ${summary(0)}`}
+                            </Typography>
+                            <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+                                {`Position Name: ${summary(1)}`}
+                            </Typography>
+                        </CardContent>
+                    </Card>
+                    <Card style={{ margin: 15 }}>
+                        <CardHeader
+                            title={'Description'}
+                        />
+                        <CardContent>
+                            <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+                                {`${summary(2)}`}
+                            </Typography>
+                        </CardContent>
+                    </Card>
                 </Grid>
             </Grid>
         </Grid>
