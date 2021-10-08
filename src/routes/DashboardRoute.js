@@ -11,7 +11,10 @@ import CardHeader from '@material-ui/core/CardHeader'
 import Button from '@mui/material/Button'
 import Typography from '@mui/material/Typography'
 import { CardContent } from '@mui/material'
+import Pagination from '@mui/material/Pagination';
+import Stack from '@mui/material/Stack';
 import ButtonBase from '@material-ui/core/ButtonBase';
+import { margin } from '@mui/system'
 
 const DashboardRoute = () => {
 
@@ -20,7 +23,8 @@ const DashboardRoute = () => {
     const [jobs] = React.useState(data.hits.hits)
     const [filteredJobs, setFilteredJobs] = React.useState([])
     const [selected, setSelected] = React.useState(0)
-    const [pagination, setPagination] = React.useState(0)
+    const [visible, setVisible] = React.useState('hidden')
+    const [hover, setHover] = React.useState(-1)
 
     const handleChangeTerm = event => {
         setSearchTerm(event.target.value)
@@ -43,6 +47,7 @@ const DashboardRoute = () => {
             }
         })
         setFilteredJobs(filteredJobs)
+        setVisible('visible')
     }
     const handleButtonClick2 = () => {
         //filter by tag
@@ -57,6 +62,7 @@ const DashboardRoute = () => {
             }
         })
         setFilteredJobs(filteredJobs)
+        setVisible('visible')
     }
     const handleButtonClick3 = () => {
         //filter by tag
@@ -71,11 +77,13 @@ const DashboardRoute = () => {
             }
         })
         setFilteredJobs(filteredJobs)
+        setVisible('visible')
     }
 
     const handleSubmit = event => {
         event.preventDefault()
         let filteredJobs = []
+        setVisible('visible')
         filteredJobs = jobs.filter((fjobs) => {
             return fjobs._source.position_name.toLowerCase().includes(searchTerm.toLowerCase())
         })
@@ -98,14 +106,17 @@ const DashboardRoute = () => {
         setFilteredJobs(filteredJobs)
     }
 
+    
 
     const filteredbycompany = filteredJobs.map((res, index) => {
         return <Card
-            style={{ 
-                margin: 15,
-             }}
+            style={
+                hover===index?{backgroundColor:'blue',margin:15,color:'white'}:{backgroundColor:'white',color:'black',margin:15,} 
+            }
             key={index}
             onClick={event =>{setSelected(index)}}
+            onMouseOver={event =>{setHover(index)}}
+            onMouseLeave={event =>{setHover(-1)}}
         >
             
             <CardHeader
@@ -202,7 +213,7 @@ const DashboardRoute = () => {
                     ></button>
                 </Box>
             </Grid>
-
+            
             <Grid item xs={4}>
                 <Button
                     size="large"
@@ -235,12 +246,17 @@ const DashboardRoute = () => {
                 <Grid
                     item xs={5}
                 >
-                    <Card style={{ margin: 15 }}>
+                    <Card style={{ 
+                        margin: 15,
+                        visibility: visible
+                     }}>
                         <CardHeader
                             title={'Summary'}
                         />
                         <CardContent>
-                            <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+                            <Typography sx={{ fontSize: 14 }} 
+                            color="text.secondary"
+                            gutterBottom>
                                 {`Company Name: ${summary(0)}`}
                             </Typography>
                             <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
@@ -248,7 +264,10 @@ const DashboardRoute = () => {
                             </Typography>
                         </CardContent>
                     </Card>
-                    <Card style={{ margin: 15 }}>
+                    <Card style={{ 
+                        margin: 15,
+                        visibility: visible
+                        }}>
                         <CardHeader
                             title={'Description'}
                         />
@@ -261,7 +280,14 @@ const DashboardRoute = () => {
                 </Grid>
             </Grid>
         </Grid>
-
+        
+        {/* <Pagination 
+        count={10} 
+        color="primary"
+        size="large"
+        /> */}
+        
+        
     </div>
 
 }
