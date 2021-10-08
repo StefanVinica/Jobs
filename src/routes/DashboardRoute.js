@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import data from '../data/jobss'
+import data from '../data/jobz.json'
 import Paper from '@mui/material/Paper'
 import Grid from '@mui/material/Grid'
 import { styled } from '@mui/material/styles'
@@ -33,7 +33,6 @@ const DashboardRoute = () => {
             return fjobs._source.position_name.toLowerCase().includes(searchTerm)
         })
         setFilteredJobs(filteredJobs)
-
     }
 
 
@@ -56,8 +55,6 @@ const DashboardRoute = () => {
         color: theme.palette.text.secondary,
     }));
 
-
-    // const jobs = this.state.jobs
     return <div>
         <Grid 
         container 
