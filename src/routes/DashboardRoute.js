@@ -8,6 +8,7 @@ import TextField from '@mui/material/TextField'
 import Box from '@mui/material/Box'
 import Card from '@material-ui/core/Card'
 import CardHeader from '@material-ui/core/CardHeader'
+import Button from '@mui/material/Button';
 
 const DashboardRoute = () => {
 
@@ -29,23 +30,23 @@ const DashboardRoute = () => {
         event.preventDefault()
         let filteredJobs = []
         filteredJobs = jobs.filter((fjobs) => {
-            return fjobs._source.company_name === searchTerm
+            return fjobs._source.position_name.toLowerCase().includes(searchTerm)
         })
         setFilteredJobs(filteredJobs)
-        
+
     }
 
-    const filtered = () => {
-        let cards
-        for (let i = 0; i < filteredJobs.length; i++) {
-            cards = <Card>
-                <CardHeader
-                title={filteredJobs[i]._source.position_name}
-                />
-            </Card>
-        }
-        return cards
-    }
+
+    const filteredbycompany = filteredJobs.map((res, index) => {
+        return <Card
+            style={{ margin: 15 }}
+            key={index}
+        >
+            <CardHeader
+                title={res._source.position_name}
+            />
+        </Card>
+    })
 
 
     const Item = styled(Paper)(({ theme }) => ({
@@ -80,8 +81,11 @@ const DashboardRoute = () => {
                 autoComplete="off"
 
             >
-                <Grid container spacing={2}>
-                    <Grid item xs={6}>
+                <Grid container
+                    spacing={2}
+                    alignItems="center"
+                    justifyContent="center">
+                    <Grid item xs={3}>
                         <TextField
                             value={searchTerm}
                             onChange={handleChangeTerm}
@@ -91,7 +95,7 @@ const DashboardRoute = () => {
                             name='term'
                         />
                     </Grid>
-                    <Grid item xs={6}>
+                    <Grid item xs={3}>
                         <TextField
                             value={searchLocation}
                             onChange={handleChangeLocation}
@@ -107,31 +111,29 @@ const DashboardRoute = () => {
                 ></button>
             </Box>
         </Grid>
-        <Grid container>
-            <Grid item xs={3}>
-                <NewCard />
+        <Grid
+            container
+            spacing={2}
+            alignItems="center"
+            justifyContent="center"
+        >
+            <Grid item xs={4}>
+                <Button size="large" variant="contained">Java</Button>
             </Grid>
             <Grid item xs={3}>
-                <NewCard />
+                <Button size="large" variant="contained">Python</Button>
             </Grid>
             <Grid item xs={3}>
-                <NewCard />
-            </Grid>
-
-
-            <Grid item xs={6}>
-
+                <Button size="large" variant="contained">Kubernetes</Button>
             </Grid>
         </Grid>
         <Grid>
             <Grid container spacing={2}>
-                <Grid item xs={8}>
-                    <NewCard />
+                <Grid
+                    item xs={6}
+                >
+                    {filteredbycompany}
                 </Grid>
-                <Grid item xs={8}>
-                    <NewCard />
-                </Grid>
-                {filtered()}
             </Grid>
         </Grid>
 
