@@ -1,3 +1,5 @@
+import React from "react";
+import ReactDOM from "react-dom";
 import TextField from '@mui/material/TextField'
 import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
@@ -5,29 +7,30 @@ import Grid from '@mui/material/Grid'
 // import { styled } from '@mui/material/styles'
 
 
+const Search = () => {
 
-export default function Search() {
-    // const Item = styled(Paper)(({ theme }) => ({
-    //     ...theme.typography.body2,
-    //     padding: theme.spacing(1),
-    //     textAlign: 'center',
-    //     color: theme.palette.text.secondary,
-    // }));
+  const [searchTerm, setSearchTerm] = React.useState("");
+  const [searchLocation, setSearchLocation] = React.useState("");
 
-    // const search = (props) => {
-    //     const {classes} = props;
-    //         const [term, setTerm] = useState('');
-    //         const [location, setLocation] = useState('');
-    
-    // function handleSubmit(event) {
-    //     event.preventDefault();
-    //     console.log( 'Term:', term, 'Location: ', location); 
-    // }
-    // }
+  const handleChangeTerm = event => {
+    setSearchTerm(event.target.value)
+  }
 
+  const handleChangeLocation = event => {
+    setSearchLocation(event.target.value)
+  }
+
+  const handleSubmit = event => {
+    event.preventDefault()
+  }
+
+  
     return (
         <Box
+            action="/"
+            method="get"
             component="form"
+            onSubmit={handleSubmit}
             sx={{
                 '& > :not(style)': { m: 1, width: '100ch' },
             }}
@@ -38,22 +41,30 @@ export default function Search() {
             <Grid container spacing={2}>
                 <Grid item xs={6}>
                     <TextField 
-                    // value={term} 
-                    // onInput={ e=>setTerm(e.target.value)}
+                    value={searchTerm} 
+                    onChange={handleChangeTerm}
                     id="term" 
                     label="Job Title"
                     variant="outlined"
-                    name='term' />
+                    name='term'
+                     />
                 </Grid>
                 <Grid item xs={6}>
                     <TextField
-                    //  value={location} 
-                    //  onInput={ e=>setLocation(e.target.value)}
-                     id="outlined-basic" 
+                     value={searchLocation} 
+                     onChange={handleChangeLocation}
+                     id="location" 
                      label="Location" 
-                     variant="outlined" />
+                     variant="outlined" 
+                     name='location'/>
                 </Grid>
             </Grid>
+            <button
+            style={{visibility: "hidden"}}
+            type="submit"
+            ></button>
         </Box>
     )
 }
+
+export default Search
