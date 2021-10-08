@@ -18,13 +18,55 @@ const DashboardRoute = () => {
     const [filteredJobs, setFilteredJobs] = React.useState([])
 
     const handleChangeTerm = event => {
-        setSearchTerm(event.target.value)
+        setSearchTerm(event.target.value.toLowerCase())
     }
 
     const handleChangeLocation = event => {
-        setSearchLocation(event.target.value)
+        setSearchLocation(event.target.value.toLowerCase())
     }
 
+    const handleButtonClick1 = () => {
+        //filter by tag
+        let filteredJobs = []
+        filteredJobs = jobs.filter((fjobs) => {
+            if (fjobs._source.tags) {
+                for (let i = 0; i < fjobs._source.tags.length; i++) {
+                    if (fjobs._source.tags[i].includes('java')) {
+                        return fjobs
+                    }
+                }
+            }
+        })
+        setFilteredJobs(filteredJobs)
+    }
+    const handleButtonClick2 = () => {
+        //filter by tag
+        let filteredJobs = []
+        filteredJobs = jobs.filter((fjobs) => {
+            if (fjobs._source.tags) {
+                for (let i = 0; i < fjobs._source.tags.length; i++) {
+                    if (fjobs._source.tags[i].includes('python')) {
+                        return fjobs
+                    }
+                }
+            }
+        })
+        setFilteredJobs(filteredJobs)
+    }
+    const handleButtonClick3 = () => {
+        //filter by tag
+        let filteredJobs = []
+        filteredJobs = jobs.filter((fjobs) => {
+            if (fjobs._source.tags) {
+                for (let i = 0; i < fjobs._source.tags.length; i++) {
+                    if (fjobs._source.tags[i].includes('kubernetes')) {
+                        return fjobs
+                    }
+                }
+            }
+        })
+        setFilteredJobs(filteredJobs)
+    }
 
     const handleSubmit = event => {
         event.preventDefault()
@@ -32,6 +74,15 @@ const DashboardRoute = () => {
         filteredJobs = jobs.filter((fjobs) => {
             return fjobs._source.position_name.toLowerCase().includes(searchTerm)
         })
+        if (searchLocation.length > 0) {
+            filteredJobs = jobs.filter((fjobs) => {
+                if (fjobs._source.location) {
+                    if (fjobs._source.position_name.toLowerCase().includes(searchTerm) && fjobs._source.location.toLowerCase().includes(searchLocation)) {
+                        return fjobs
+                    }
+                }
+            })
+        }
         setFilteredJobs(filteredJobs)
     }
 
@@ -56,9 +107,9 @@ const DashboardRoute = () => {
     }));
 
     return <div>
-        <Grid 
-        container 
-        spacing={2}>
+        <Grid
+            container
+            spacing={2}>
             <Grid item xs={8}>
                 <Item>Cassandra.jobs</Item>
             </Grid>
@@ -115,15 +166,27 @@ const DashboardRoute = () => {
             </Grid>
 
             <Grid item xs={4}>
-                <Button size="large" variant="contained">Java</Button>
+                <Button
+                    size="large"
+                    variant="contained"
+                    onClick={handleButtonClick1}
+                >Java</Button>
             </Grid>
             <Grid item xs={3}>
-                <Button size="large" variant="contained">Python</Button>
+                <Button 
+                size="large"
+                variant="contained"
+                onClick={handleButtonClick2}
+                >Python</Button>
             </Grid>
             <Grid item xs={3}>
-                <Button size="large" variant="contained">Kubernetes</Button>
+                <Button 
+                size="large" 
+                variant="contained"
+                onClick={handleButtonClick3}
+                >Kubernetes</Button>
             </Grid>
-        {/* </Grid>
+            {/* </Grid>
         <Grid> */}
             <Grid container spacing={2}>
                 <Grid
