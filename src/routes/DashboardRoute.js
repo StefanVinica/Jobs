@@ -20,6 +20,7 @@ const DashboardRoute = () => {
     const [jobs] = React.useState(data.hits.hits)
     const [filteredJobs, setFilteredJobs] = React.useState([])
     const [selected, setSelected] = React.useState(0)
+    const [pagination, setPagination] = React.useState(0)
 
     const handleChangeTerm = event => {
         setSearchTerm(event.target.value)
@@ -81,7 +82,7 @@ const DashboardRoute = () => {
         if (searchLocation.length > 0) {
             filteredJobs = jobs.filter((fjobs) => {
                 if (fjobs._source.location) {
-                    if (fjobs._source.position_name.toLowerCase().includes(searchTerm) && fjobs._source.location.toLowerCase().includes(searchLocation.toLowerCase())) {
+                    if (fjobs._source.position_name.toLowerCase().includes(searchTerm) || fjobs._source.location.toLowerCase().includes(searchLocation.toLowerCase())) {
                         return fjobs
                     }
                 }
@@ -100,7 +101,9 @@ const DashboardRoute = () => {
 
     const filteredbycompany = filteredJobs.map((res, index) => {
         return <Card
-            style={{ margin: 15 }}
+            style={{ 
+                margin: 15,
+             }}
             key={index}
             onClick={event =>{setSelected(index)}}
         >
