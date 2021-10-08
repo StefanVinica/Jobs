@@ -18,11 +18,11 @@ const DashboardRoute = () => {
     const [filteredJobs, setFilteredJobs] = React.useState([])
 
     const handleChangeTerm = event => {
-        setSearchTerm(event.target.value.toLowerCase())
+        setSearchTerm(event.target.value)
     }
 
     const handleChangeLocation = event => {
-        setSearchLocation(event.target.value.toLowerCase())
+        setSearchLocation(event.target.value)
     }
 
     const handleButtonClick1 = () => {
@@ -72,16 +72,22 @@ const DashboardRoute = () => {
         event.preventDefault()
         let filteredJobs = []
         filteredJobs = jobs.filter((fjobs) => {
-            return fjobs._source.position_name.toLowerCase().includes(searchTerm)
+            return fjobs._source.position_name.toLowerCase().includes(searchTerm.toLowerCase())
         })
         if (searchLocation.length > 0) {
             filteredJobs = jobs.filter((fjobs) => {
                 if (fjobs._source.location) {
-                    if (fjobs._source.position_name.toLowerCase().includes(searchTerm) && fjobs._source.location.toLowerCase().includes(searchLocation)) {
+                    if (fjobs._source.position_name.toLowerCase().includes(searchTerm) && fjobs._source.location.toLowerCase().includes(searchLocation.toLowerCase())) {
                         return fjobs
                     }
                 }
             })
+        }
+        if (searchTerm.length === 0) {
+            filteredJobs = jobs.filter((fjobs) => {
+                if(fjobs._source.location){
+                return fjobs._source.location.toLowerCase().includes(searchLocation.toLowerCase())
+            }})
         }
         setFilteredJobs(filteredJobs)
     }
