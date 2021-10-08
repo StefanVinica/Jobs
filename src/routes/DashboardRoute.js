@@ -13,7 +13,7 @@ const DashboardRoute = () => {
 
     const [searchTerm, setSearchTerm] = useState("")
     const [searchLocation, setSearchLocation] = useState("")
-    const [jobs, setJobs] = React.useState(data.hits.hits)
+    const [jobs] = React.useState(data.hits.hits)
     const [filteredJobs, setFilteredJobs] = React.useState([])
 
     const handleChangeTerm = event => {
@@ -29,7 +29,7 @@ const DashboardRoute = () => {
         event.preventDefault()
         let filteredJobs = []
         filteredJobs = jobs.filter((fjobs) => {
-            return fjobs._source.company_name == searchTerm
+            return fjobs._source.company_name === searchTerm
         })
         setFilteredJobs(filteredJobs)
         
