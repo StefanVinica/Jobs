@@ -59,7 +59,9 @@ const DashboardRoute = () => {
 
     // const jobs = this.state.jobs
     return <div>
-        <Grid container spacing={2}>
+        <Grid 
+        container 
+        spacing={2}>
             <Grid item xs={8}>
                 <Item>Cassandra.jobs</Item>
             </Grid>
@@ -69,54 +71,52 @@ const DashboardRoute = () => {
             <Grid item xs={2}>
                 <Item>About Us</Item>
             </Grid>
-            <Box
-                action="/"
-                method="get"
-                component="form"
-                onSubmit={handleSubmit}
-                sx={{
-                    '& > :not(style)': { m: 1, width: '100ch' },
-                }}
-                noValidate
-                autoComplete="off"
-
-            >
-                <Grid container
-                    spacing={2}
-                    alignItems="center"
-                    justifyContent="center">
-                    <Grid item xs={3}>
-                        <TextField
-                            value={searchTerm}
-                            onChange={handleChangeTerm}
-                            id="term"
-                            label="Job Title"
-                            variant="outlined"
-                            name='term'
-                        />
-                    </Grid>
-                    <Grid item xs={3}>
-                        <TextField
-                            value={searchLocation}
-                            onChange={handleChangeLocation}
-                            id="location"
-                            label="Location"
-                            variant="outlined"
-                            name='location' />
-                    </Grid>
-                </Grid>
-                <button
-                    style={{ visibility: "hidden" }}
-                    type="submit"
-                ></button>
-            </Box>
         </Grid>
         <Grid
+            style={{ margin: 50 }}
             container
             spacing={2}
             alignItems="center"
             justifyContent="center"
         >
+            <Grid item xs={12}>
+                <Box
+                    action="/"
+                    method="get"
+                    component="form"
+                    onSubmit={handleSubmit}
+                    sx={{
+                        '& > :not(style)': { m: 1, width: '100ch' },
+                    }}
+                    noValidate
+                    autoComplete="off"
+
+                >
+
+                    <TextField
+                        value={searchTerm}
+                        onChange={handleChangeTerm}
+                        id="term"
+                        label="Job Title"
+                        variant="outlined"
+                        name='term'
+                    />
+
+                    <TextField
+                        value={searchLocation}
+                        onChange={handleChangeLocation}
+                        id="location"
+                        label="Location"
+                        variant="outlined"
+                        name='location' />
+
+                    <button
+                        style={{ visibility: "hidden" }}
+                        type="submit"
+                    ></button>
+                </Box>
+            </Grid>
+
             <Grid item xs={4}>
                 <Button size="large" variant="contained">Java</Button>
             </Grid>
@@ -126,8 +126,8 @@ const DashboardRoute = () => {
             <Grid item xs={3}>
                 <Button size="large" variant="contained">Kubernetes</Button>
             </Grid>
-        </Grid>
-        <Grid>
+        {/* </Grid>
+        <Grid> */}
             <Grid container spacing={2}>
                 <Grid
                     item xs={6}
