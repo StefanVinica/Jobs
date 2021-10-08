@@ -16,7 +16,7 @@ import Stack from '@mui/material/Stack';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import { margin } from '@mui/system'
 
-const DashboardRoute = () => {
+const DashboardRoute = (props) => {
 
     const [searchTerm, setSearchTerm] = useState("")
     const [searchLocation, setSearchLocation] = useState("")
@@ -106,6 +106,8 @@ const DashboardRoute = () => {
         setFilteredJobs(filteredJobs)
     }
 
+  
+
     
 
     const filteredbycompany = filteredJobs.map((res, index) => {
@@ -160,13 +162,13 @@ const DashboardRoute = () => {
             container
             spacing={2}>
             <Grid item xs={8}>
-                <Item>Cassandra.jobs</Item>
+                <Item onClick={event => {props.history.push('/')}}>Cassandra.jobs</Item>
             </Grid>
             <Grid item xs={2}>
                 <Item>Jobs</Item>
             </Grid>
             <Grid item xs={2}>
-                <Item>About Us</Item>
+                <Item onClick={event => {props.history.push('/aboutus')}}>About Us</Item>
             </Grid>
         </Grid>
         <Grid
@@ -273,7 +275,7 @@ const DashboardRoute = () => {
                         />
                         <CardContent>
                             <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                                {`${summary(2)}`}
+                                {summary(2)}
                             </Typography>
                         </CardContent>
                     </Card>
