@@ -171,6 +171,11 @@ const DashboardRoute = (props) => {
         padding: theme.spacing(1),
         textAlign: 'center',
         color: theme.palette.text.secondary,
+        fontFamily: 'Poppins,sans-serif!important',
+        color:'#000',
+        fontWeight:500,
+        fontSize:'1.4rem',
+        textDecoration:'none'
     }));
 
     return <div>
@@ -178,7 +183,8 @@ const DashboardRoute = (props) => {
             container
             spacing={2}>
             <Grid item xs={8}>
-                <Item onClick={event => { props.history.push('/') }}>Cassandra.jobs</Item>
+                <Item 
+                onClick={event => { props.history.push('/') }}>Cassandra.jobs</Item>
             </Grid>
             <Grid item xs={2}>
                 <Item>Jobs</Item>

@@ -15,6 +15,11 @@ const AboutUs = (props) => {
         padding: theme.spacing(1),
         textAlign: 'center',
         color: theme.palette.text.secondary,
+        fontFamily: 'Poppins,sans-serif!important',
+        color:'#000',
+        fontWeight:500,
+        fontSize:'1.4rem',
+        textDecoration:'none'
     }));
 
     return <div>

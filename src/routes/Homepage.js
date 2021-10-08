@@ -20,6 +20,11 @@ const Homepage = (props) => {
         padding: theme.spacing(1),
         textAlign: 'center',
         color: theme.palette.text.secondary,
+        fontFamily: 'Poppins,sans-serif!important',
+        color:'#000',
+        fontWeight:500,
+        fontSize:'1.4rem',
+        textDecoration:'none'
     }));
 
     const handleSubmit = event => {
@@ -43,7 +48,7 @@ const Homepage = (props) => {
                 >Jobs</Item>
             </Grid>
             <Grid item xs={2}>
-                <Item>About Us</Item>
+                <Item onClick={event => { props.history.push('/aboutus') }}>About Us</Item>
             </Grid>
         </Grid>
         <Grid
