@@ -80,6 +80,11 @@ const DashboardRoute = (props) => {
         setVisible('visible')
     }
 
+    const format = date => {
+        let now = new Date(date)
+        return now
+    }
+
     const handleSubmit = event => {
         event.preventDefault()
         let filteredJobs = []
@@ -106,25 +111,36 @@ const DashboardRoute = (props) => {
         setFilteredJobs(filteredJobs)
     }
 
-  
 
-    
+
+
 
     const filteredbycompany = filteredJobs.map((res, index) => {
         return <Card
             style={
-                hover===index?{backgroundColor:'blue',margin:15,color:'white'}:{backgroundColor:'white',color:'black',margin:15,} 
+                hover === index ? { backgroundColor: 'blue', margin: 15, color: 'white' } : { backgroundColor: 'white', color: '#1976D2', margin: 15, }
             }
             key={index}
-            onClick={event =>{setSelected(index)}}
-            onMouseOver={event =>{setHover(index)}}
-            onMouseLeave={event =>{setHover(-1)}}
+            onClick={event => { setSelected(index) }}
+            onMouseOver={event => { setHover(index) }}
+            onMouseLeave={event => { setHover(-1) }}
         >
-            
+
             <CardHeader
                 title={res._source.position_name}
             />
-            
+            <CardContent>
+                <Typography variant="h6" color="#D84315">
+                    {res._source.company_name}
+                </Typography>
+                <Typography variant="body1" color="#F4511E">
+                    Source: {res._source.external_api_name}
+                </Typography>
+                <Typography variant="caption" color='black'>
+                    Date: {res._source.updated_at}
+                </Typography>
+            </CardContent>
+
         </Card>
     })
 
@@ -162,13 +178,13 @@ const DashboardRoute = (props) => {
             container
             spacing={2}>
             <Grid item xs={8}>
-                <Item onClick={event => {props.history.push('/')}}>Cassandra.jobs</Item>
+                <Item onClick={event => { props.history.push('/') }}>Cassandra.jobs</Item>
             </Grid>
             <Grid item xs={2}>
                 <Item>Jobs</Item>
             </Grid>
             <Grid item xs={2}>
-                <Item onClick={event => {props.history.push('/aboutus')}}>About Us</Item>
+                <Item onClick={event => { props.history.push('/aboutus') }}>About Us</Item>
             </Grid>
         </Grid>
         <Grid
@@ -215,7 +231,7 @@ const DashboardRoute = (props) => {
                     ></button>
                 </Box>
             </Grid>
-            
+
             <Grid item xs={4}>
                 <Button
                     size="large"
@@ -248,33 +264,33 @@ const DashboardRoute = (props) => {
                 <Grid
                     item xs={5}
                 >
-                    <Card style={{ 
+                    <Card style={{
                         margin: 15,
                         visibility: visible
-                     }}>
+                    }}>
                         <CardHeader
                             title={'Summary'}
                         />
                         <CardContent>
-                            <Typography sx={{ fontSize: 14 }} 
-                            color="text.secondary"
-                            gutterBottom>
+                            <Typography sx={{ fontSize: 14 }}
+                                color="#D84315"
+                                gutterBottom>
                                 {`Company Name: ${summary(0)}`}
                             </Typography>
-                            <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+                            <Typography sx={{ fontSize: 14 }} color="#0288D1" gutterBottom>
                                 {`Position Name: ${summary(1)}`}
                             </Typography>
                         </CardContent>
                     </Card>
-                    <Card style={{ 
+                    <Card style={{
                         margin: 15,
                         visibility: visible
-                        }}>
+                    }}>
                         <CardHeader
                             title={'Description'}
                         />
                         <CardContent>
-                            <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+                            <Typography sx={{ fontSize: 14 }} color="#0288D1" gutterBottom>
                                 {summary(2)}
                             </Typography>
                         </CardContent>
@@ -282,14 +298,14 @@ const DashboardRoute = (props) => {
                 </Grid>
             </Grid>
         </Grid>
-        
+
         {/* <Pagination 
         count={10} 
         color="primary"
         size="large"
         /> */}
-        
-        
+
+
     </div>
 
 }

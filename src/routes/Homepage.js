@@ -9,6 +9,7 @@ import TextField from '@mui/material/TextField'
 import CardMedia from '@mui/material/CardMedia'
 
 import image from '../img/img.jpg'
+import image1 from '../img/img1.jpg'
 
 const Homepage = (props) => {
 
@@ -114,7 +115,7 @@ const Homepage = (props) => {
                     <CardContent>
                         <CardMedia
                             component="img"
-                            image={image}
+                            image={image1}
                             alt=""
                         />
                         
